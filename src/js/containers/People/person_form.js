@@ -1,5 +1,5 @@
 import React from 'react';
-import PeopleActions from '../actions/people_actions';
+import {updatePeople} from './peopleActions';
 
 class PersonForm extends React.Component {
   constructor(props) {
@@ -15,9 +15,10 @@ class PersonForm extends React.Component {
   }
 
   handleSubmit(event) {
+    const { dispatch } = this.props;
     event.preventDefault();
 
-    PeopleActions.add(this.state.name);
+   if(!this.state.name == '') dispatch(updatePeople(this.state.name));
 
     this.setState({ name: '' });
     this.refs.nameInput.getDOMNode().focus();
