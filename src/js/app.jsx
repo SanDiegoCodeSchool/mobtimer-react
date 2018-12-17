@@ -9,6 +9,7 @@ import Timer from './containers/Timer';
 import Interval from './containers/Interval';
 import Message from './containers/Message';
 import AudioNotification from './containers/Audio';
+// import StudentList from './containers/People/studentlist';
 
 export default class App extends Component {
   render() {
