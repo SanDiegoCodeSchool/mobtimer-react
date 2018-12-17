@@ -1,26 +1,56 @@
-var path = require('path');
+const path = require('path');
 
 module.exports = {
-  entry: {
-    app: ['./src/app.js']
-  },
+  context: path.join(__dirname, '/src'),
+
+  devtool:"inline-source-map",
+  
+  entry: [
+    path.resolve(__dirname, 'src', 'js','index.jsx'), 
+    path.resolve(__dirname, 'src', 'styles','main.scss'),
+    path.resolve(__dirname, 'src', 'styles','people.scss'),
+    path.resolve(__dirname, 'src', 'styles','timer.scss'),
+    path.resolve(__dirname, 'src', 'styles','variables.scss'),
+  ],
+
   output: {
-    path: path.join(__dirname, 'public'),
-    publicPath: '/',
-    filename: 'app.js'
+    filename: 'bundle.js',
+    path: path.join(__dirname, '/dist')
+    
   },
-  module: {
-    loaders: [
-    {
-      test: /\.scss$/,
-      loader: 'style!css!sass!'
+
+  resolve: {
+    alias: {
+      react: path.join(__dirname, 'node_modules', 'react')
     },
-    {
-      test: /\.js$/,
-      loaders: [
-        'babel-loader'
+    extensions: ['.js', '.jsx']
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loaders: ['babel-loader'],
+      },
+
+      {
+        test: /\.scss$/,
+        use: [{
+          loader: 'style-loader',
+        },
+        {
+          loader: 'css-loader',
+        },
+        {
+          loader: 'sass-loader',
+        },
       ],
-      exclude: path.join(__dirname, 'node_modules')
-    } ]
-  }
+    },
+      {
+        test: /\.html$/,
+        loader: 'file?name=[name].[ext]',
+      },
+    ],
+  },
 };

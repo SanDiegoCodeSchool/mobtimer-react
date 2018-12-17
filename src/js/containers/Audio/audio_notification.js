@@ -1,16 +1,16 @@
 import React from 'react';
-import TimerActions from '../actions/timer_actions';
+import ReactDOM from 'react-dom';
 
 class AudioNotification extends React.Component {
-  componentWillReceiveProps(props) {
-    if (props.playNotification) {
+  componentDidUpdate(props) {
+    const { playNotification } = this.props
+    if (playNotification) {
       this.play();
-      TimerActions.notificationPlayed();
     }
   }
 
   play() {
-    var audio = React.findDOMNode(this.refs.audioTag);
+    var audio = ReactDOM.findDOMNode(this.refs.audioTag);
 
     audio.load();
     audio.play();
@@ -24,10 +24,6 @@ class AudioNotification extends React.Component {
       </audio>
     );
   }
-};
-
-AudioNotification.propTypes = {
-  playNotification: React.PropTypes.bool.isRequired
 };
 
 export default AudioNotification;

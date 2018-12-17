@@ -1,15 +1,20 @@
 import React from 'react';
-import PeopleActions from '../actions/people_actions';
 import ClassNames from 'classnames';
+import {removePeople} from '../People/peopleActions'
 
 class Person extends React.Component {
+    constructor(props) {
+        super(props);
+    }
   handleClick() {
-    PeopleActions.remove(this.props.index);
+    const {dispatch} = this.props; 
+    dispatch(removePeople(this.props.index));
   }
 
   render() {
+    const {isCurrent} = this.props;
     var classes = ClassNames({
-      active: this.props.isCurrent
+      active: isCurrent
     });
 
     return (
@@ -19,10 +24,6 @@ class Person extends React.Component {
       </li>
     );
   }
-};
-
-Person.propTypes = {
-  name: React.PropTypes.string.isRequired
 };
 
 export default Person;
