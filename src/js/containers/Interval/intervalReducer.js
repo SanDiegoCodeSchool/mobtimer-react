@@ -5,7 +5,8 @@ const defaultState = {
     msLeft: 0,
     end: 0,
     playNotification: false,
-    status: 'idle' 
+    status: 'idle',
+    startTime:[]
   };
     
 export default function intervalReducer(state = defaultState, action) {
@@ -24,6 +25,7 @@ export default function intervalReducer(state = defaultState, action) {
                 end: (state.status == 'idle') ? Moment().add(state.minutes, 'minutes') :
                         Moment().add(state.msLeft, 'milliseconds'),
                 playNotification: false,
+                startTime: [...state.startTime, Date.now()]
             }
         }
         case 'PAUSE_TIMER': {
