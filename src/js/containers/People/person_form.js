@@ -1,47 +1,46 @@
 import React from 'react';
 import axios from "axios";
 
-import {updatePeople} from './peopleActions';
+import {updatePeople, getStudents, selectStudent} from './peopleActions';
 
 class PersonForm extends React.Component {
   constructor(props) {
     super(props);
-
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
     this.state = {
-      studentList: [],
       name: ''
     };
   }
 
   componentWillMount() {
-    axios
-    .get('/students') 
-    .then(response => this.setState({studentList: response.data}));
-    }
+    const { dispatch } = this.props;
+
+    dispatch(getStudents());
+  }
 
   handleChange(event) {
-    this.setState({ name: event.target.value });
+    const { dispatch } = this.props;
+    this.setState({name: event.target.value })
+    dispatch(selectStudent(event.target.value));
   }
 
   handleSubmit(event) {
     const { dispatch } = this.props;
     event.preventDefault();
-
-   if(!this.state.name == '') dispatch(updatePeople(this.state.name));
-
-    // this.setState({ name: '' });
-    // this.refs.nameInput.getDOMNode().focus();
+    console.log(event.target);
+    dispatch(updatePeople(this.state.name));
   }
 
   render() {
-    const List = this.state.studentList;
+    const {studentList} = this.props;
+    console.log(this.props.studentList);
     return (
-      <form onSubmit={this.handleSubmit.bind(this)} className="people-form">
-        <select onChange={this.handleChange.bind(this)} value={this.state.name}>
+      <form onSubmit={this.handleSubmit} className="people-form">
+        <select onChange={this.handleChange} value={this.state.name}>
               <option>Please Select Your Name!</option>
-              {List.map((eachStudent) => <option key= {eachStudent.id} >{eachStudent.fName} {eachStudent.lName}</option>)}
+              {studentList.map((eachStudent) => <option key={eachStudent.id}>{eachStudent.fName} {eachStudent.lName}</option>)}
         </select>
-        {/* <input type="text" ref="nameInput" onChange={this.handleChange.bind(this)} value={this.state.name} placeholder="Your name" /> */}
         <button type="submit">Add</button>
       </form>
     );
