@@ -9,8 +9,10 @@ function mapStoreToProps(store) {
     playNotification: store.timer.playNotification,
     status: store.timer.status,
     currentDriverIndex: store.people.currentDriverIndex,
+    currentDriver: store.people.currentDriver,
     people: store.people.people,
-    playNotification: store.timer.playNotification
+    playNotification: store.timer.playNotification,
+    times: store.timer.times
   };
 }
 

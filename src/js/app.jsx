@@ -9,18 +9,19 @@ import Timer from './containers/Timer';
 import Interval from './containers/Interval';
 import Message from './containers/Message';
 import AudioNotification from './containers/Audio';
+import EndSession from './containers/EndSession';
+import SummaryPage from './containers/SummaryPage';
 
 export default class App extends Component {
   render() {
     return (
-        <div>
-            <h1>Mob Timer</h1>
-            <Message />
-            <Timer />
-            <Interval />
-            <People />
-            <AudioNotification />
-        </div>
+
+            <Router>
+                <div>
+                  <Route exact path = '/' component={()=> (<div><Message/> <Timer/> <Interval/> <People/> <AudioNotification/> <EndSession/></div>)} />
+                  <Route path = '/mob-summary' component= { SummaryPage } />
+                </div>
+            </Router>
     )
   }
 }

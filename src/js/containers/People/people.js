@@ -38,7 +38,7 @@ class People extends React.Component {
   }
   
   render() {
-    const { people, dispatch, currentDriverIndex} = this.props;
+    const { people, dispatch, currentDriverIndex, studentList} = this.props;
     var peopleList = [];
     var shuffleButton = '';
     var skipButton = '';
@@ -63,7 +63,9 @@ class People extends React.Component {
           {shuffleButton} {skipButton}
         </div>
         <PersonForm
-        dispatch = {dispatch} />
+        dispatch = {dispatch} 
+        studentList = {studentList}
+        />
       </div>
     );
   }

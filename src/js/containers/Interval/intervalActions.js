@@ -4,19 +4,22 @@ export function minutesChanged(minutes) {
     payload: { minutes }
   };
 }
-export function start() {
+export function start(id, times) {
+    
     return {
       type: 'START_TIMER',
-    };
+      payload: { id }
+     };
   }
 export function pause() {
   return {
     type: 'PAUSE_TIMER',
   };
 }
-export function countdown() {
+export function countdown(id, times) {
   return {
     type: 'COUNTDOWN',
+    payload: { id }
   };
 }
 export function end() {

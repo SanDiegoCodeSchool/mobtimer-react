@@ -1,7 +1,9 @@
 const defaultState = {
 people: [],
 currentDriverIndex: 0,
-currentDriver: ''
+currentDriver: '',
+studentList:[],
+selectedStudent:''
 }
 
 export default function peopleReducer(state = defaultState, action) {
@@ -12,7 +14,7 @@ export default function peopleReducer(state = defaultState, action) {
                 ...state,
                 people: [
                     ...state.people,
-                    payload.name
+                    payload.id
                 ],
                 currentDriver: state.people[state.currentDriverIndex]
             };
@@ -37,7 +39,20 @@ export default function peopleReducer(state = defaultState, action) {
                 currentDriverIndex: payload.nextDriverIndex,
                 currentDriver: state.people[payload.nextDriverIndex]
             }
+        } 
+        case 'GET_STUDENTS_FULFILLED': {
+            console.log('payload',payload);
+            return {
+                ...state,
+                studentList: payload
+            }
         }
+        // case 'SELECT_STUDENT': {
+        //     return {
+        //         ...state,
+        //         selectedStudent: payload.name
+        //     }
+        // }
     default: {
         return state;
     }

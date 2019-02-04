@@ -1,7 +1,9 @@
-export function updatePeople(name) {
+import axios from 'axios';
+
+export function updatePeople(id) {
     return {
       type: 'UPDATE_PEOPLE',
-      payload: { name },
+      payload: { id },
     };
   }
 export function removePeople(index) {
@@ -27,4 +29,17 @@ export function skipDriver(currentDriverIndex, people) {
     payload:{ nextDriverIndex }
   };
 }
-  
+export function getStudents() {
+  return {
+    type: 'GET_STUDENTS',
+    payload: axios
+    .get('/students')
+    .then(response => response.data)
+  };
+}
+//   export function selectStudent(name) {
+//     return {
+//       type: 'SELECT_STUDENT',
+//       payload: { name }
+//     };
+// }

@@ -1,37 +1,53 @@
 import React from 'react';
-import {updatePeople} from './peopleActions';
+import axios from "axios";
+
+import {updatePeople, getStudents, selectStudent} from './peopleActions';
 
 class PersonForm extends React.Component {
   constructor(props) {
     super(props);
-
+    this.handleOptionChange = this.handleOptionChange.bind(this)
+    this.handleAdd = this.handleAdd.bind(this)
     this.state = {
-      name: ''
+      name: '',
+      id: null
     };
   }
 
-  handleChange(event) {
-    this.setState({ name: event.target.value });
+  componentWillMount() {
+    const { dispatch } = this.props;
+
+    dispatch(getStudents());
   }
 
-  handleSubmit(event) {
+  handleOptionChange(event) {
+    const { dispatch } = this.props;
+    console.log('event.target', event.target);
+    this.setState({id: event.target.value })
+    // dispatch(selectStudent(event.target.value));
+  }
+
+  handleAdd(event) {
     const { dispatch } = this.props;
     event.preventDefault();
-
-   if(!this.state.name == '') dispatch(updatePeople(this.state.name));
-
-    this.setState({ name: '' });
-    this.refs.nameInput.getDOMNode().focus();
+    dispatch(updatePeople(this.state.id));
   }
 
   render() {
+    const {studentList} = this.props;
+    console.log(this.props.studentList);
     return (
-      <form onSubmit={this.handleSubmit.bind(this)} className="people-form">
-        <input type="text" ref="nameInput" onChange={this.handleChange.bind(this)} value={this.state.name} placeholder="Your name" />
+      <form onSubmit={this.handleAdd} className="people-form">
+        <select onChange={this.handleOptionChange} value={this.state.id}>
+              <option>Please Select Your Name!</option>
+              {studentList.map((eachStudent) => <option value={eachStudent.id} key={eachStudent.id}>{eachStudent.fName} {eachStudent.lName}</option>)}
+        </select>
         <button type="submit">Add</button>
       </form>
     );
   }
 };
+
+
 
 export default PersonForm;

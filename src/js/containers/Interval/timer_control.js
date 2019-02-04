@@ -19,11 +19,11 @@ class TimerControl extends React.Component {
   }
  
   handleStart() {
-    const {dispatch} = this.props;
-    dispatch(start());
+    const {dispatch, currentDriver, times} = this.props;
+    dispatch(start(currentDriver, times));
     window.timer = setInterval(myTimer, 500);
     function myTimer() {
-      dispatch(countdown())
+      dispatch(countdown(currentDriver, times))
     }
   }
 
