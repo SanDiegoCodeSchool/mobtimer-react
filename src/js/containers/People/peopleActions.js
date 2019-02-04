@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export function updatePeople(name) {
+export function updatePeople(id) {
     return {
       type: 'UPDATE_PEOPLE',
-      payload: { name },
+      payload: { id },
     };
   }
 export function removePeople(index) {
@@ -37,9 +37,9 @@ export function getStudents() {
     .then(response => response.data)
   };
 }
-  export function selectStudent(name) {
-    return {
-      type: 'SELECT_STUDENT',
-      payload: { name }
-    };
-}
+//   export function selectStudent(name) {
+//     return {
+//       type: 'SELECT_STUDENT',
+//       payload: { name }
+//     };
+// }

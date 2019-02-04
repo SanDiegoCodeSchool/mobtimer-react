@@ -1,4 +1,5 @@
 import Moment from 'moment';
+import _ from 'lodash';
 
 const defaultState = {
     minutes: 0,
@@ -6,9 +7,10 @@ const defaultState = {
     end: 0,
     playNotification: false,
     status: 'idle',
-    startTime:[]
-  };
-    
+    startTime:[],
+    times: {}
+};
+
 export default function intervalReducer(state = defaultState, action) {
     const { type, payload } = action;
     switch (type) {
@@ -19,13 +21,16 @@ export default function intervalReducer(state = defaultState, action) {
             }
         }
         case 'START_TIMER': {
+            let userTotal = parseInt(_.get(state, `state.times${[payload.id]}.total`, 0), 10);
             return {
                 ...state,
                 status: 'running' ,
                 end: (state.status == 'idle') ? Moment().add(state.minutes, 'minutes') :
-                        Moment().add(state.msLeft, 'milliseconds'),
+                Moment().add(state.msLeft, 'milliseconds'),
                 playNotification: false,
-                startTime: [...state.startTime, Date.now()]
+                startTime: [...state.startTime, Date.now()],
+                // times: {...state.times, times[payload.id]: { total: userTotal}
+                
             }
         }
         case 'PAUSE_TIMER': {
@@ -35,9 +40,14 @@ export default function intervalReducer(state = defaultState, action) {
             }
         }
         case 'COUNTDOWN': {
+            //let userTotal = parseInt(_.get(state, `state.times${[payload.id]}.total`, 0), 10);
+            // let result = [];
+            // result.push(userTotal);
+            // console.log(userTotal,result);
             return {
                 ...state,
-                msLeft: state.end.diff(Moment(), 'milliseconds')
+                msLeft: state.end.diff(Moment(), 'milliseconds'),
+                times: Object.assign(state.times, { [payload.id]: { total: state.times[payload.id].total + 500 }})
             }
         }
         case 'STOP_COUNTDOWN': {

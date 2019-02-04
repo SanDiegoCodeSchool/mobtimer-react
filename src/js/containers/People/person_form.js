@@ -6,10 +6,11 @@ import {updatePeople, getStudents, selectStudent} from './peopleActions';
 class PersonForm extends React.Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleOptionChange = this.handleOptionChange.bind(this)
+    this.handleAdd = this.handleAdd.bind(this)
     this.state = {
-      name: ''
+      name: '',
+      id: null
     };
   }
 
@@ -19,27 +20,27 @@ class PersonForm extends React.Component {
     dispatch(getStudents());
   }
 
-  handleChange(event) {
+  handleOptionChange(event) {
     const { dispatch } = this.props;
-    this.setState({name: event.target.value })
-    dispatch(selectStudent(event.target.value));
+    console.log('event.target', event.target);
+    this.setState({id: event.target.value })
+    // dispatch(selectStudent(event.target.value));
   }
 
-  handleSubmit(event) {
+  handleAdd(event) {
     const { dispatch } = this.props;
     event.preventDefault();
-    console.log(event.target);
-    dispatch(updatePeople(this.state.name));
+    dispatch(updatePeople(this.state.id));
   }
 
   render() {
     const {studentList} = this.props;
     console.log(this.props.studentList);
     return (
-      <form onSubmit={this.handleSubmit} className="people-form">
-        <select onChange={this.handleChange} value={this.state.name}>
+      <form onSubmit={this.handleAdd} className="people-form">
+        <select onChange={this.handleOptionChange} value={this.state.id}>
               <option>Please Select Your Name!</option>
-              {studentList.map((eachStudent) => <option key={eachStudent.id}>{eachStudent.fName} {eachStudent.lName}</option>)}
+              {studentList.map((eachStudent) => <option value={eachStudent.id} key={eachStudent.id}>{eachStudent.fName} {eachStudent.lName}</option>)}
         </select>
         <button type="submit">Add</button>
       </form>

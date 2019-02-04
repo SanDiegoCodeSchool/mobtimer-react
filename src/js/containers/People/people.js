@@ -3,7 +3,6 @@ import PersonForm from './person_form';
 import Person from '../Person/person';
 import {shuffle, skipDriver} from './peopleActions';
 import {reset, pause} from '../Interval/intervalActions';
-// import StudentList from './studentlist';
 
 class People extends React.Component {
   componentDidUpdate(){

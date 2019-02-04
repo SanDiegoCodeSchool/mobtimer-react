@@ -14,7 +14,7 @@ export default function peopleReducer(state = defaultState, action) {
                 ...state,
                 people: [
                     ...state.people,
-                    payload.name
+                    payload.id
                 ],
                 currentDriver: state.people[state.currentDriverIndex]
             };
@@ -47,12 +47,12 @@ export default function peopleReducer(state = defaultState, action) {
                 studentList: payload
             }
         }
-        case 'SELECT_STUDENT': {
-            return {
-                ...state,
-                selectedStudent: payload.name
-            }
-        }
+        // case 'SELECT_STUDENT': {
+        //     return {
+        //         ...state,
+        //         selectedStudent: payload.name
+        //     }
+        // }
     default: {
         return state;
     }
