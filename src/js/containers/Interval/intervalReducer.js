@@ -7,7 +7,7 @@ const defaultState = {
     end: 0,
     playNotification: false,
     status: 'idle',
-    startTime:[],
+    startTime: [],
     times: {}
 };
 
@@ -18,26 +18,33 @@ export default function intervalReducer(state = defaultState, action) {
             return {
                 ...state,
                 minutes: payload.minutes
-            }
+            };
         }
         case 'START_TIMER': {
-            let userTotal = parseInt(_.get(state, `state.times${[payload.id]}.total`, 0), 10);
+            let userTotal = parseInt(
+                _.get(state, `state.times${[payload.id]}.total`, 0),
+                10
+            );
             return {
                 ...state,
-                status: 'running' ,
-                end: (state.status == 'idle') ? Moment().add(state.minutes, 'minutes') :
-                Moment().add(state.msLeft, 'milliseconds'),
+                status: 'running',
+                end:
+                    state.status == 'idle'
+                        ? Moment().add(state.minutes, 'minutes')
+                        : Moment().add(state.msLeft, 'milliseconds'),
                 playNotification: false,
                 startTime: [...state.startTime, Date.now()],
-                // times: {...state.times, times[payload.id]: { total: userTotal}
-                
-            }
+                times: {
+                    ...state.times,
+                    [payload.id]: { total: userTotal }
+                }
+            };
         }
         case 'PAUSE_TIMER': {
             return {
                 ...state,
-                status:'paused'
-            }
+                status: 'paused'
+            };
         }
         case 'COUNTDOWN': {
             //let userTotal = parseInt(_.get(state, `state.times${[payload.id]}.total`, 0), 10);
@@ -47,31 +54,32 @@ export default function intervalReducer(state = defaultState, action) {
             return {
                 ...state,
                 msLeft: state.end.diff(Moment(), 'milliseconds'),
-                times: Object.assign(state.times, { [payload.id]: { total: state.times[payload.id].total + 500 }})
-            }
+                times: Object.assign(state.times, {
+                    [payload.id]: { total: state.times[payload.id] + 500 }
+                })
+            };
         }
         case 'STOP_COUNTDOWN': {
             return {
-                ...state,
-            }
+                ...state
+            };
         }
         case 'RESET_TIMER': {
             return {
                 ...state,
                 status: 'idle',
                 end: Moment().add(state.minutes, 'minutes'),
-                msLeft: state.minutes * 60 * 1000,
-
-            }
+                msLeft: state.minutes * 60 * 1000
+            };
         }
         case 'PLAY_AUDIO': {
             return {
                 ...state,
-                playNotification: true,
-            }
+                playNotification: true
+            };
         }
-    default: {
-      return state;
+        default: {
+            return state;
+        }
     }
-  }
 }
