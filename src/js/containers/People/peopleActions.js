@@ -18,15 +18,17 @@ export function removePeople(index) {
         payload: { index }
     };
 }
-export function shuffle(previousPeople) {
+export function shuffle(previousPeople, currentDriverIndex) {
     return {
         type: 'SHUFFLE_PEOPLE',
-        payload: { previousPeople }
+        payload: { previousPeople, currentDriverIndex }
     };
 }
-export function skipDriver(currentDriverIndex, people) {
+export function skipDriver(currentDriverIndex, mobParticipants) {
     let nextDriverIndex = currentDriverIndex + 1;
-    if (nextDriverIndex >= people.length) {
+    let mobSize = mobParticipants.length;
+
+    if (nextDriverIndex >= mobSize) {
         nextDriverIndex = 0;
     }
     return {

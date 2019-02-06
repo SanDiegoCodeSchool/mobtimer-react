@@ -16,9 +16,9 @@ class PersonForm extends React.Component {
     }
 
     handleOptionChange(event) {
-        const { dispatch, studentList } = this.props;
+        const { dispatch, apiData } = this.props;
         const value = event.target.value;
-        const student = studentList.find(student => student.id == value);
+        const student = apiData.find(student => student.id == value);
         dispatch(updateSelected(student));
     }
 
@@ -29,14 +29,14 @@ class PersonForm extends React.Component {
     }
 
     render() {
-        const { studentList } = this.props;
+        const { apiData } = this.props;
         return (
             <form className="people-form">
                 <select onChange={this.handleOptionChange}>
                     <option value="" disabled selected>
                         Please Select Your Name!
                     </option>
-                    {studentList.map(eachStudent => (
+                    {apiData.map(eachStudent => (
                         <option value={eachStudent.id}>
                             {eachStudent.fName} {eachStudent.lName}
                         </option>

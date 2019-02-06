@@ -14,19 +14,19 @@ class People extends React.Component {
     }
 
     handleClick() {
-        const { dispatch, people } = this.props;
-        var previousPeople = [...people];
+        const { dispatch, mobParticipants, currentDriverIndex } = this.props;
+        var previousPeople = [...mobParticipants];
         previousPeople.sort(function(a, b) {
             return 0.5 - Math.random();
         });
-        dispatch(shuffle(previousPeople));
+        dispatch(shuffle(previousPeople, currentDriverIndex));
     }
 
     handleSkip() {
-        const { currentDriverIndex, people, dispatch } = this.props;
+        const { currentDriverIndex, mobParticipants, dispatch } = this.props;
         dispatch(reset());
         dispatch(pause());
-        dispatch(skipDriver(currentDriverIndex, people));
+        dispatch(skipDriver(currentDriverIndex, mobParticipants));
     }
 
     shuffleButton() {
@@ -39,58 +39,45 @@ class People extends React.Component {
 
     render() {
         const {
-            people,
+            mobParticipants,
             dispatch,
             currentDriverIndex,
-            studentList
+            apiData
         } = this.props;
         var peopleList = [];
         var shuffleButton = '';
         var skipButton = '';
 
-        // Object.entries(people)
-        //     .map(([people, index]) => {
-        //         var isCurrent = index == this.props.currentDriverIndex;
-        //         peopleList.push(
-        //             <Person
-        //                 key={index}
-        //                 index={index}
-        //                 name={people}
-        //                 dispatch={dispatch}
-        //                 isCurrent={isCurrent}
-        //             />
-        //         );
-        //     })
-        //     .bind(this);
+        const list = mobParticipants.map(mobParticipant => mobParticipant.name);
 
-        // people.map(
-        //     function(people, index) {
-        //         var isCurrent = index == this.props.currentDriverIndex;
-        //         peopleList.push(
-        //             <Person
-        //                 key={index}
-        //                 index={index}
-        //                 name={people}
-        //                 dispatch={dispatch}
-        //                 isCurrent={isCurrent}
-        //             />
-        //         );
-        //     }.bind(this)
-        // );
+        list.map(
+            function(name, index) {
+                var isCurrent = index == this.props.currentDriverIndex;
+                peopleList.push(
+                    <Person
+                        key={index}
+                        index={index}
+                        name={name}
+                        dispatch={dispatch}
+                        isCurrent={isCurrent}
+                    />
+                );
+            }.bind(this)
+        );
 
-        if (people.length > 1) {
+        if (mobParticipants.length > 1) {
             shuffleButton = this.shuffleButton();
             skipButton = this.skipButton();
         }
 
         return (
             <div>
-                <h2>People!</h2>
+                <h2>Participants!</h2>
                 <ul className="people">{peopleList}</ul>
                 <div className="people-buttons">
                     {shuffleButton} {skipButton}
                 </div>
-                <PersonForm dispatch={dispatch} studentList={studentList} />
+                <PersonForm dispatch={dispatch} apiData={apiData} />
             </div>
         );
     }
