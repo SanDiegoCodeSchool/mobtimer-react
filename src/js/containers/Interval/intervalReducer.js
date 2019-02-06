@@ -47,15 +47,15 @@ export default function intervalReducer(state = defaultState, action) {
             };
         }
         case 'COUNTDOWN': {
-            //let userTotal = parseInt(_.get(state, `state.times${[payload.id]}.total`, 0), 10);
-            // let result = [];
-            // result.push(userTotal);
-            // console.log(userTotal,result);
+            let userTotal = parseInt(
+                _.get(state, `state.times${[payload.id]}.total`, 0),
+                10
+            );
             return {
                 ...state,
                 msLeft: state.end.diff(Moment(), 'milliseconds'),
                 times: Object.assign(state.times, {
-                    [payload.id]: { total: state.times[payload.id] + 500 }
+                    [payload.id]: { total: userTotal + 500 }
                 })
             };
         }

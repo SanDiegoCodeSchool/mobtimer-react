@@ -2,17 +2,15 @@ import React from 'react';
 import Moment from 'moment';
 
 class Timer extends React.Component {
-  formatTime() {
-    const { msLeft } = this.props;
-    return Moment(msLeft).format('mm:ss');
-  }
+    formatTime() {
+        const { msLeft } = this.props;
+        return Moment(msLeft).format('mm:ss');
+    }
 
-  render() {
-    console.log("timer props", this.props.msLeft)
-    return (
-      <div className="timer">{this.formatTime()}</div>
-    );
-  }
-};
+    render() {
+        console.log('timer props', this.props.msLeft);
+        return <div className="timer">{this.formatTime()}</div>;
+    }
+}
 
 export default Timer;

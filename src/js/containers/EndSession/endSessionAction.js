@@ -6,8 +6,11 @@ export function mobSummary(minutes) {
     const mobTimeTotal = Moment(mobTimeMs).format('mm:ss');
     console.log(mobTimeTotal);
     return {
-
-      type: 'CALCULATE_MOB_TOTAL',
-      payload: { mobTimeTotal }
+        type: 'CALCULATE_MOB_TOTAL',
+        payload: { mobTimeTotal }
     };
-  }
+}
+
+// export function studentSummary(minutes) {
+
+// }

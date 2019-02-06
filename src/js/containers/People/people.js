@@ -48,20 +48,35 @@ class People extends React.Component {
         var shuffleButton = '';
         var skipButton = '';
 
-        people.map(
-            function(people, index) {
-                var isCurrent = index == this.props.currentDriverIndex;
-                peopleList.push(
-                    <Person
-                        key={index}
-                        index={index}
-                        name={people}
-                        dispatch={dispatch}
-                        isCurrent={isCurrent}
-                    />
-                );
-            }.bind(this)
-        );
+        // Object.entries(people)
+        //     .map(([people, index]) => {
+        //         var isCurrent = index == this.props.currentDriverIndex;
+        //         peopleList.push(
+        //             <Person
+        //                 key={index}
+        //                 index={index}
+        //                 name={people}
+        //                 dispatch={dispatch}
+        //                 isCurrent={isCurrent}
+        //             />
+        //         );
+        //     })
+        //     .bind(this);
+
+        // people.map(
+        //     function(people, index) {
+        //         var isCurrent = index == this.props.currentDriverIndex;
+        //         peopleList.push(
+        //             <Person
+        //                 key={index}
+        //                 index={index}
+        //                 name={people}
+        //                 dispatch={dispatch}
+        //                 isCurrent={isCurrent}
+        //             />
+        //         );
+        //     }.bind(this)
+        // );
 
         if (people.length > 1) {
             shuffleButton = this.shuffleButton();

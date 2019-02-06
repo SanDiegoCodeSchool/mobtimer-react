@@ -1,10 +1,11 @@
 const defaultState = {
-people: [],
-currentDriverIndex: 0,
-currentDriver: '',
-studentList:[],
-selectedStudent:''
-}
+    people: [],
+    currentDriverIndex: 0,
+    currentDriver: '',
+    currentDriverId: '',
+    studentList: [],
+    selectedStudent: {}
+};
 
 export default function peopleReducer(state = defaultState, action) {
     const { type, payload } = action;
@@ -14,14 +15,28 @@ export default function peopleReducer(state = defaultState, action) {
                 ...state,
                 people: [
                     ...state.people,
-                    payload.id
+                    {
+                        name:
+                            state.selectedStudent.fName +
+                            ' ' +
+                            state.selectedStudent.lName,
+                        id: state.selectedStudent.id
+                    }
                 ],
-                currentDriver: state.people[state.currentDriverIndex]
+                currentDriver: state.people[state.currentDriverIndex],
+                currentDriverId: state.people[state.currentDriverId],
+                selectedStudent: {}
+            };
+        }
+        case 'UPDATE_SELECTED': {
+            return {
+                ...state,
+                selectedStudent: payload.value
             };
         }
         case 'REMOVE_PEOPLE': {
             const newPeople = [...state.people];
-            newPeople.splice(payload.index,1);
+            newPeople.splice(payload.index, 1);
             return {
                 ...state,
                 people: newPeople
@@ -31,21 +46,20 @@ export default function peopleReducer(state = defaultState, action) {
             return {
                 ...state,
                 people: payload.previousPeople
-            }
+            };
         }
         case 'SKIP_PEOPLE': {
             return {
                 ...state,
                 currentDriverIndex: payload.nextDriverIndex,
                 currentDriver: state.people[payload.nextDriverIndex]
-            }
-        } 
+            };
+        }
         case 'GET_STUDENTS_FULFILLED': {
-            console.log('payload',payload);
             return {
                 ...state,
                 studentList: payload
-            }
+            };
         }
         // case 'SELECT_STUDENT': {
         //     return {
@@ -53,8 +67,8 @@ export default function peopleReducer(state = defaultState, action) {
         //         selectedStudent: payload.name
         //     }
         // }
-    default: {
-        return state;
+        default: {
+            return state;
+        }
     }
-  }
 }

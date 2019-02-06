@@ -1,59 +1,48 @@
 import React from 'react';
 import axios from 'axios';
 
-import { updatePeople, getStudents, selectStudent } from './peopleActions';
+import { updatePeople, getStudents, updateSelected } from './peopleActions';
 
 class PersonForm extends React.Component {
     constructor(props) {
         super(props);
         this.handleOptionChange = this.handleOptionChange.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
-        this.state = {
-            name: '',
-            id: ''
-        };
     }
 
     componentWillMount() {
         const { dispatch } = this.props;
-
         dispatch(getStudents());
     }
 
     handleOptionChange(event) {
-        const { dispatch } = this.props;
-        console.log('event.target', event.target);
-        this.setState({ id: event.target.value });
-        // dispatch(selectStudent(event.target.value));
+        const { dispatch, studentList } = this.props;
+        const value = event.target.value;
+        const student = studentList.find(student => student.id == value);
+        dispatch(updateSelected(student));
     }
 
     handleAdd(event) {
         const { dispatch } = this.props;
-        event.preventDefault();
-        dispatch(updatePeople(this.state.id));
+        const { value } = event.target;
+        dispatch(updatePeople(value));
     }
 
     render() {
         const { studentList } = this.props;
         return (
-            <form onSubmit={this.handleAdd} className="people-form">
-                <select
-                    onChange={this.handleOptionChange}
-                    value={this.state.id}
-                >
+            <form className="people-form">
+                <select onChange={this.handleOptionChange}>
                     <option value="" disabled selected>
                         Please Select Your Name!
                     </option>
                     {studentList.map(eachStudent => (
-                        <option
-                            value={eachStudent.fName + ' ' + eachStudent.lName}
-                            key={eachStudent.id}
-                        >
+                        <option value={eachStudent.id}>
                             {eachStudent.fName} {eachStudent.lName}
                         </option>
                     ))}
                 </select>
-                <button type="submit">Add</button>
+                <button onClick={this.handleAdd}>Add</button>
             </form>
         );
     }
