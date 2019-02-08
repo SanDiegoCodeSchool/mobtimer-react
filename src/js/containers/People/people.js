@@ -6,7 +6,7 @@ import { reset, pause } from '../Interval/intervalActions';
 
 class People extends React.Component {
     componentDidUpdate() {
-        const { dispatch, status } = this.props;
+        const { status } = this.props;
         if (status == 'paused') {
             clearInterval(window.timer);
             if (window.timer) clearInterval(window.timer);
@@ -38,12 +38,7 @@ class People extends React.Component {
     }
 
     render() {
-        const {
-            mobParticipants,
-            dispatch,
-            currentDriverIndex,
-            apiData
-        } = this.props;
+        const { mobParticipants, dispatch, apiData } = this.props;
         var peopleList = [];
         var shuffleButton = '';
         var skipButton = '';

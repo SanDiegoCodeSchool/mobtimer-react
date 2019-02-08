@@ -1,7 +1,13 @@
 import React from 'react';
-import { start, pause, reset, end, countdown } from './intervalActions';
+import {
+    start,
+    pause,
+    reset,
+    end,
+    countdown,
+    playAudio
+} from './intervalActions';
 import { skipDriver } from '../People/peopleActions';
-import { playAudio } from './intervalActions';
 
 class TimerControl extends React.Component {
     componentDidUpdate() {
@@ -10,8 +16,7 @@ class TimerControl extends React.Component {
             dispatch,
             status,
             currentDriverIndex,
-            mobParticipants,
-            playNotification
+            mobParticipants
         } = this.props;
         if (msLeft < 0) {
             dispatch(reset());
@@ -34,7 +39,7 @@ class TimerControl extends React.Component {
     }
 
     handlePause() {
-        const { dispatch, status } = this.props;
+        const { dispatch } = this.props;
         dispatch(pause());
     }
 
@@ -56,7 +61,7 @@ class TimerControl extends React.Component {
     }
 
     render() {
-        const { status, msLeft } = this.props;
+        const { status } = this.props;
         var mainButton = '';
         var resetButton = '';
 

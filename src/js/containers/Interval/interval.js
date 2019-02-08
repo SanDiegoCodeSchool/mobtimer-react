@@ -13,22 +13,33 @@ class Interval extends React.Component {
     }
 
     render() {
+        const {
+            dispatch,
+            minutes,
+            status,
+            msLeft,
+            currentDriver,
+            currentDriverIndex,
+            mobParticipants,
+            times
+        } = this.props;
+
         return (
             <div>
                 <input
                     type="number"
                     className="minutes"
-                    defaultValue={this.props.minutes}
+                    defaultValue={minutes}
                     onChange={this.handleChange}
                 />
                 <TimerControl
-                    dispatch={this.props.dispatch}
-                    status={this.props.status}
-                    msLeft={this.props.msLeft}
-                    currentDriver={this.props.currentDriver}
-                    currentDriverIndex={this.props.currentDriverIndex}
-                    mobParticipants={this.props.mobParticipants}
-                    times={this.props.times}
+                    dispatch={dispatch}
+                    status={status}
+                    msLeft={msLeft}
+                    currentDriver={currentDriver}
+                    currentDriverIndex={currentDriverIndex}
+                    mobParticipants={mobParticipants}
+                    times={times}
                 />
             </div>
         );

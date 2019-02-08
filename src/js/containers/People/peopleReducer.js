@@ -62,12 +62,6 @@ export default function peopleReducer(state = defaultState, action) {
                 apiData: payload
             };
         }
-        // case 'SELECT_STUDENT': {
-        //     return {
-        //         ...state,
-        //         selectedStudent: payload.name
-        //     }
-        // }
         default: {
             return state;
         }

@@ -4,10 +4,10 @@ export function minutesChanged(minutes) {
         payload: { minutes }
     };
 }
-export function start(id, times) {
+export function start() {
     return {
         type: 'START_TIMER',
-        payload: { id }
+        payload: {}
     };
 }
 export function pause() {
@@ -15,10 +15,10 @@ export function pause() {
         type: 'PAUSE_TIMER'
     };
 }
-export function countdown(id, times) {
+export function countdown(currentDriver) {
     return {
         type: 'COUNTDOWN',
-        payload: { id }
+        payload: { currentDriver }
     };
 }
 export function end() {
