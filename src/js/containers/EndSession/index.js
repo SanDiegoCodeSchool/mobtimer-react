@@ -2,10 +2,12 @@ import { connect } from 'react-redux';
 import EndSession from './endsession';
 
 function mapStoreToProps(store) {
-  return {
-    startTime: store.timer.startTime,
-    mobTimeTotal: store.mobTimeTotal.mobTimeTotal
-  };
+    return {
+        times: store.timer.times,
+        startTime: store.timer.startTime,
+        minutes: store.timer.minutes,
+        mobTimeTotal: store.mobTimeTotal.mobTimeTotal
+    };
 }
 
 export default connect(mapStoreToProps)(EndSession);

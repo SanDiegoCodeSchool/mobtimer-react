@@ -21,10 +21,6 @@ export default function intervalReducer(state = defaultState, action) {
             };
         }
         case 'START_TIMER': {
-            let userTotal = parseInt(
-                _.get(state, `state.times${[payload.id]}.total`, 0),
-                10
-            );
             return {
                 ...state,
                 status: 'running',
@@ -33,11 +29,7 @@ export default function intervalReducer(state = defaultState, action) {
                         ? Moment().add(state.minutes, 'minutes')
                         : Moment().add(state.msLeft, 'milliseconds'),
                 playNotification: false,
-                startTime: [...state.startTime, Date.now()],
-                times: {
-                    ...state.times,
-                    [payload.id]: { total: userTotal }
-                }
+                startTime: [...state.startTime, Date.now()]
             };
         }
         case 'PAUSE_TIMER': {
@@ -47,15 +39,16 @@ export default function intervalReducer(state = defaultState, action) {
             };
         }
         case 'COUNTDOWN': {
-            //let userTotal = parseInt(_.get(state, `state.times${[payload.id]}.total`, 0), 10);
-            // let result = [];
-            // result.push(userTotal);
-            // console.log(userTotal,result);
+            let userTotal = !!state.times[payload.currentDriver.id]
+                ? state.times[payload.currentDriver.id].total
+                : 0;
             return {
                 ...state,
                 msLeft: state.end.diff(Moment(), 'milliseconds'),
                 times: Object.assign(state.times, {
-                    [payload.id]: { total: state.times[payload.id] + 500 }
+                    [payload.currentDriver.id]: {
+                        total: userTotal + 500
+                    }
                 })
             };
         }

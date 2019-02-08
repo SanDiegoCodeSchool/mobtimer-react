@@ -1,7 +1,7 @@
 const defaultState = {
-    mobTimeTotal:''
-  };
-    
+    mobTimeTotal: ''
+};
+
 export default function intervalReducer(state = defaultState, action) {
     const { type, payload } = action;
     switch (type) {
@@ -9,10 +9,10 @@ export default function intervalReducer(state = defaultState, action) {
             return {
                 ...state,
                 mobTimeTotal: payload.mobTimeTotal
-            }
+            };
         }
         default: {
             return state;
-          }
+        }
     }
 }

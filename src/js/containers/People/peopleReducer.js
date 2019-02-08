@@ -1,10 +1,11 @@
 const defaultState = {
-people: [],
-currentDriverIndex: 0,
-currentDriver: '',
-studentList:[],
-selectedStudent:''
-}
+    mobParticipants: [],
+    currentDriverIndex: 0,
+    currentDriver: '',
+    currentDriverId: '',
+    apiData: [],
+    selectedStudent: {}
+};
 
 export default function peopleReducer(state = defaultState, action) {
     const { type, payload } = action;
@@ -12,49 +13,57 @@ export default function peopleReducer(state = defaultState, action) {
         case 'UPDATE_PEOPLE': {
             return {
                 ...state,
-                people: [
-                    ...state.people,
-                    payload.id
+                mobParticipants: [
+                    ...state.mobParticipants,
+                    {
+                        name:
+                            state.selectedStudent.fName +
+                            ' ' +
+                            state.selectedStudent.lName,
+                        id: state.selectedStudent.id
+                    }
                 ],
-                currentDriver: state.people[state.currentDriverIndex]
+                currentDriver: state.mobParticipants[state.currentDriverIndex],
+                currentDriverId: state.mobParticipants[state.currentDriverId],
+                selectedStudent: {}
+            };
+        }
+        case 'UPDATE_SELECTED': {
+            return {
+                ...state,
+                selectedStudent: payload.value
             };
         }
         case 'REMOVE_PEOPLE': {
-            const newPeople = [...state.people];
-            newPeople.splice(payload.index,1);
+            const newPeople = [...state.mobParticipants];
+            newPeople.splice(payload.index, 1);
             return {
                 ...state,
-                people: newPeople
+                mobParticipants: newPeople
             };
         }
         case 'SHUFFLE_PEOPLE': {
             return {
                 ...state,
-                people: payload.previousPeople
-            }
+                mobParticipants: payload.previousPeople,
+                currentDriver: payload.previousPeople[state.currentDriverIndex]
+            };
         }
         case 'SKIP_PEOPLE': {
             return {
                 ...state,
                 currentDriverIndex: payload.nextDriverIndex,
-                currentDriver: state.people[payload.nextDriverIndex]
-            }
-        } 
+                currentDriver: state.mobParticipants[payload.nextDriverIndex]
+            };
+        }
         case 'GET_STUDENTS_FULFILLED': {
-            console.log('payload',payload);
             return {
                 ...state,
-                studentList: payload
-            }
+                apiData: payload
+            };
         }
-        // case 'SELECT_STUDENT': {
-        //     return {
-        //         ...state,
-        //         selectedStudent: payload.name
-        //     }
-        // }
-    default: {
-        return state;
+        default: {
+            return state;
+        }
     }
-  }
 }
