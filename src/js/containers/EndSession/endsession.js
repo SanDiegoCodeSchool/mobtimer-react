@@ -1,15 +1,15 @@
 import React from 'react';
-import { mobSummary, sendTimes } from './endSessionAction';
+import { mobSummary, changeNames } from './endSessionAction';
 
 class Interval extends React.Component {
     constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
     }
-    handleClick(event) {
-        const { dispatch, startTime, times } = this.props;
+    handleClick() {
+        const { dispatch, startTime, mobParticipants } = this.props;
         dispatch(mobSummary(startTime));
-        dispatch(sendTimes(times));
+        dispatch(changeNames(mobParticipants));
     }
 
     render() {

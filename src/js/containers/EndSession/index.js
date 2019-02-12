@@ -6,7 +6,8 @@ function mapStoreToProps(store) {
         times: store.timer.times,
         startTime: store.timer.startTime,
         minutes: store.timer.minutes,
-        mobTimeTotal: store.mobTimeTotal.mobTimeTotal
+        mobTimeTotal: store.mobTimeTotal.mobTimeTotal,
+        mobParticipants: store.people.mobParticipants
     };
 }
 

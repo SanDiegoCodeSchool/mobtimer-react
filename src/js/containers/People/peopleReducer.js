@@ -3,6 +3,9 @@ const defaultState = {
     currentDriverIndex: 0,
     currentDriver: '',
     currentDriverId: '',
+    editStatus: false,
+    editName: '',
+    editIndex: '',
     apiData: [],
     selectedStudent: {}
 };
@@ -20,7 +23,7 @@ export default function peopleReducer(state = defaultState, action) {
                             state.selectedStudent.fName +
                             ' ' +
                             state.selectedStudent.lName,
-                        id: state.selectedStudent.id
+                        id: state.selectedStudent.id,
                     }
                 ],
                 currentDriver: state.mobParticipants[state.currentDriverIndex],
@@ -32,6 +35,32 @@ export default function peopleReducer(state = defaultState, action) {
             return {
                 ...state,
                 selectedStudent: payload.value
+            };
+        }
+        case 'EDIT_NAME': {
+            const newPeople = [...state.mobParticipants];
+            return {
+                ...state,
+                editStatus: true,
+                editName: payload.name,
+                editIndex: payload.index,
+                mobParticipants: newPeople
+            };
+        }
+        case 'UPDATE_NAME' : {
+            return {
+                ...state,
+                editName: payload.value
+            };
+        }
+        case 'NEW_NICKNAME' : {
+            const newPeople = [...state.mobParticipants];
+            newPeople[state.editIndex].name = state.editName;
+            return{ 
+                ...state,
+                editStatus: false,
+                editName: '',
+                mobParticipants: newPeople
             };
         }
         case 'REMOVE_PEOPLE': {
