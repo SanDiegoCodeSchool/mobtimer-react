@@ -18,10 +18,8 @@ class EditName extends React.Component {
   }
 
   handleSave(){
-    const { dispatch, editObject, editName } = this.props;
-    console.log('editObject', editObject);
-    console.log('editName', editName);
-    dispatch(newNickname(editObject, editName));
+    const { dispatch, editObject, editName, editIndex } = this.props;
+    dispatch(newNickname(editObject, editName, editIndex));
   }
 
   render() {
@@ -40,6 +38,6 @@ class EditName extends React.Component {
 }
 };
 
+
 export default EditName;
 
-//start here.  We need to figure out why save errors off!!

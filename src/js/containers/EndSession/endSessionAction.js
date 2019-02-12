@@ -9,11 +9,10 @@ export function mobSummary(minutes) {
         payload: { mobTimeTotal }
     };
 }
-
-export function sendTimes(times) {
+export function changeNames(mobParticipants) {
     return {
-        type: 'SEND_TIMES',
-        payload: { times }
+        type: 'CHANGE_NAMES',
+        payload: { mobParticipants }
     };
 }
 export function postResults(times, mobParticipants) {
