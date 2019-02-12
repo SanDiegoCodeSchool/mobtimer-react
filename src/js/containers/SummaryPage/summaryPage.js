@@ -3,6 +3,10 @@ class SummaryPage extends React.Component {
     constructor(props) {
         super(props);
     }
+    // componentWillMount() {
+    //     const { dispatch } = this.props;
+    //     dispatch(postResults());
+    // }
     render() {
         const { mobParticipants, mobTimeTotal, times } = this.props;
 

@@ -19,8 +19,6 @@ class EditName extends React.Component {
 
   handleSave(){
     const { dispatch, editObject, editName, editIndex } = this.props;
-    console.log('props', this.props);
-    console.log('editName', editName);
     dispatch(newNickname(editObject, editName, editIndex));
   }
 
@@ -40,4 +38,6 @@ class EditName extends React.Component {
 }
 };
 
+
 export default EditName;
+

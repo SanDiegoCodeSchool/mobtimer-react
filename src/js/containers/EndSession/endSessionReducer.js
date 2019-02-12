@@ -1,5 +1,6 @@
 const defaultState = {
-    mobTimeTotal: ''
+    mobTimeTotal: '',
+    response: ''
 };
 
 export default function intervalReducer(state = defaultState, action) {
@@ -11,12 +12,17 @@ export default function intervalReducer(state = defaultState, action) {
                 mobTimeTotal: payload.mobTimeTotal
             };
         }
+
+        case 'POST_RESULTS_FULFILLED': {
+            return {
+                ...state,
+                response: payload
+            };
         case 'CHANGE_NAMES': {
             const names = payload.mobParticipants;
             console.log(names);
             return {
                 ...state,
-
             }
         }
         default: {
