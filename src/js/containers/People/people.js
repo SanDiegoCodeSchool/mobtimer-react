@@ -1,6 +1,7 @@
 import React from 'react';
 import PersonForm from './person_form';
 import Person from '../Person/person';
+import EditName from '../EditName';
 import { shuffle, skipDriver } from './peopleActions';
 import { reset, pause } from '../Interval/intervalActions';
 
@@ -46,12 +47,13 @@ class People extends React.Component {
         const list = mobParticipants.map(mobParticipant => mobParticipant.name);
 
         list.map(
-            function(name, index) {
+            function(name, index, id) {
                 var isCurrent = index == this.props.currentDriverIndex;
                 peopleList.push(
                     <Person
                         key={index}
                         index={index}
+                        //id={id}
                         name={name}
                         dispatch={dispatch}
                         isCurrent={isCurrent}
@@ -68,6 +70,7 @@ class People extends React.Component {
         return (
             <div>
                 <h2>Participants!</h2>
+                <EditName />
                 <ul className="people">{peopleList}</ul>
                 <div className="people-buttons">
                     {shuffleButton} {skipButton}

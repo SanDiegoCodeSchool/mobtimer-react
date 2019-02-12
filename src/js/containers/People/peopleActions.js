@@ -18,6 +18,24 @@ export function removePeople(index) {
         payload: { index }
     };
 }
+export function editName(index, name, id) {
+    return {
+        type: 'EDIT_NAME',
+        payload: { index, name, id }
+    };
+}
+export function updateName(value) {
+    return {
+        type: 'UPDATE_NAME',//updates the editName in state
+        payload: { value }
+    };
+}
+export function newNickname(editName, editIndex) {
+    return {
+        type: 'NEW_NICKNAME',//saves the new nickname into state
+        payload: { editName, editIndex }
+    };
+}
 export function shuffle(previousPeople, currentDriverIndex) {
     return {
         type: 'SHUFFLE_PEOPLE',

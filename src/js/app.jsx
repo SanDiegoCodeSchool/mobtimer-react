@@ -11,6 +11,7 @@ import Message from './containers/Message';
 import AudioNotification from './containers/Audio';
 import EndSession from './containers/EndSession';
 import SummaryPage from './containers/SummaryPage';
+//import EditName from './containers/EditName';
 
 export default class App extends Component {
   render() {
