@@ -28,6 +28,7 @@
         "babel": "^6.3.26",
         "babel-register": "^6.4.3",
         "bluebird": "^3.5.0",
+        "body-parser": "^1.18.3",
         "classnames": "^2.2.6",
         "concurrently": "^4.1.0",
         "connected-react-router": "^6.2.2",

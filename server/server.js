@@ -1,10 +1,13 @@
 const express = require('express');
 const morgan = require('morgan');
-// const axios = require('axios');
+//const axios = require('axios');
+const bodyParser = require('body-parser');
+
 
 const app = express();
 
 app.use(morgan('dev'));
+app.use(bodyParser.json());
 app.use(express.static('dist'));
 app.use(express.static('public'));
 
@@ -59,6 +62,12 @@ app.get('/students', (req, res) => {
             realm: 'SDCS'
         }
     ]);
+});
+
+
+app.post('/postResults', (req, res) => {
+    console.log('req.body', req.body);
+    res.send(req.body);
 });
 
 module.exports = app;
