@@ -18,6 +18,7 @@ export default function intervalReducer(state = defaultState, action) {
                 ...state,
                 response: payload
             };
+        }
         case 'CHANGE_NAMES': {
             const names = payload.mobParticipants;
             console.log(names);
