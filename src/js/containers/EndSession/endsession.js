@@ -1,5 +1,5 @@
 import React from 'react';
-import { mobSummary, sendTimes } from './endSessionAction';
+import { mobSummary, sendTimes, postResults } from './endSessionAction';
 
 class Interval extends React.Component {
     constructor(props) {
@@ -7,9 +7,10 @@ class Interval extends React.Component {
         this.handleClick = this.handleClick.bind(this);
     }
     handleClick(event) {
-        const { dispatch, startTime, times } = this.props;
+        const { dispatch, startTime, times, mobParticipants } = this.props;
         dispatch(mobSummary(startTime));
         dispatch(sendTimes(times));
+        dispatch(postResults(times, mobParticipants));
     }
 
     render() {
